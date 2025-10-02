@@ -52,22 +52,22 @@
         }
 
         .page-header {
-            font-size: 48px;
+            font-size: 30px;
             font-weight: 300;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             animation: fadeInDown 0.8s ease-out;
         }
 
         .page-subheader {
-            font-size: 18px;
+            font-size: 16px;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             animation: fadeInDown 0.8s ease-out 0.2s both;
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 20px 30px;
             font-size: 16px;
             font-weight: 500;
             text-decoration: none;
@@ -80,11 +80,11 @@
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
-        .btn:hover {
+        /* .btn:hover {
             background-color: #c41828;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(237, 28, 47, 0.4);
-        }
+        } */
 
         .btn:disabled {
             opacity: 0.6;
@@ -109,16 +109,16 @@
             width: 100%;
             max-width: 100%;
             padding: 10px 0;
-            font-size: 35px;
+            font-size: 30px;
             text-align: center;
             border: none;
             border-bottom: 2px solid #000000;
             background: transparent;
             outline: none;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             margin-bottom: 20px;
             transition: border-color 0.3s ease;
-            color: #ddd;
+            color: #ffffff;
         }
 
         #Code:focus {
@@ -220,6 +220,7 @@
 
         .result-message {
             font-size: 14px;
+            font-weight: lighter;
             text-align: left;
             /* margin-left: -28%; */
             color: #666;
@@ -284,7 +285,7 @@
         }
 
         .product-security-subtitle {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             color: #666;
             text-align: left;
@@ -328,6 +329,57 @@
         .product-table td:last-child {
             color: #777777;
             font-weight: 400;
+        }
+
+        .loading-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #252525;
+            animation: fadeIn 0.3s ease-out;
+            height: 600px;
+        }
+
+        .loading-screen.show {
+            display: block;
+        }
+
+        .loading-title {
+            font-size: 32px;
+            font-weight: lighter;
+            color: #fffefd;
+            margin-top: 200px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border: 3px solid #595959;
+            border-top: 3px solid #d3921e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hide result content when loading */
+        .result-content {
+            display: none;
+        }
+
+        .result-content.show {
+            display: block;
         }
 
         .footer {
@@ -541,77 +593,83 @@
         </div>
     </section>
 
-    {{-- <section id="section_authenticate">
-
-    </section> --}}
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <h3 class="loading-title">CHECKING YOUR PRODUCT</h3>
+        <div class="loading-spinner"></div>
+    </div>
 
     <!-- Result Section -->
     <section id="section_result">
         <div class="result-container">
-            <div class="result-code">RESULT FOR '<span id="resultCode"></span>'</div>
 
-            <!-- Icon Centang dengan Animasi -->
-            <div class="checkmark-icon" id="checkmarkIcon">
-                <svg viewBox="0 0 100 100">
-                    <path class="checkmark-check" d="M25,50 L40,65 L75,30" />
-                </svg>
-            </div>
+            <!-- Result Content (wrap existing content) -->
+            <div class="result-content" id="resultContent">
+                <div class="result-code">RESULT FOR '<span id="resultCode"></span>'</div>
 
-            <div class="result-status" id="resultStatus"></div>
-            <div class="result-message" id="resultMessage"></div>
+                <!-- Icon Centang dengan Animasi -->
+                <div class="checkmark-icon" id="checkmarkIcon">
+                    <svg viewBox="0 0 100 100">
+                        <path class="checkmark-check" d="M25,50 L40,65 L75,30" />
+                    </svg>
+                </div>
 
-            <!-- Product Information Table -->
-            <div class="product-info-section" id="productInfoSection">
-                <h3 class="product-info-title">YOUR PRODUCT SPECIFIC INFORMATION</h3>
-                <p class="product-info-subtitle">The following information was assigned to your product during the
-                    manufacture process.</p>
+                <div class="result-status" id="resultStatus"></div>
+                <div class="result-message" id="resultMessage"></div>
 
-                <table class="product-table">
-                    <tr>
-                        <td>1 - Product Name</td>
-                        <td id="productName">-</td>
-                    </tr>
-                    <tr>
-                        <td>2 - Batch Number</td>
-                        <td id="batchNumber">-</td>
-                    </tr>
-                    <tr>
-                        <td>3 - Date of Manufacturing</td>
-                        <td id="mfgDate">-</td>
-                    </tr>
-                    <tr>
-                        <td>4 - Date of expiration</td>
-                        <td id="expDate">-</td>
-                    </tr>
-                    <tr>
-                        <td>5 - Manufacturing site</td>
-                        <td id="mfgSite">-</td>
-                    </tr>
-                    <tr>
-                        <td>6 - Repacking site</td>
-                        <td id="repackSite">-</td>
-                    </tr>
-                </table>
-            </div>
+                <!-- Product Information Table -->
+                <div class="product-info-section" id="productInfoSection">
+                    <h3 class="product-info-title">YOUR PRODUCT SPECIFIC INFORMATION</h3>
+                    <p class="product-info-subtitle">The following information was assigned to your product during the
+                        manufacture process.</p>
 
-            <!-- Security Label Section - Moved inside result-container -->
-            <div class="product-info-section" id="securityLabelSection">
-                <h3 class="product-security-title">DOW PRODUCT WITH SECURITY LABEL</h3>
-                <img class="img-drum" src="{{ asset('img/drum-dow.jpg') }}" alt="Dow Product Drum"
-                    style="margin-top: 20px;">
-            </div>
+                    <table class="product-table">
+                        <tr>
+                            <td>1 - Product Name</td>
+                            <td id="productName">-</td>
+                        </tr>
+                        <tr>
+                            <td>2 - Batch Number</td>
+                            <td id="batchNumber">-</td>
+                        </tr>
+                        <tr>
+                            <td>3 - Date of Manufacturing</td>
+                            <td id="mfgDate">-</td>
+                        </tr>
+                        <tr>
+                            <td>4 - Date of expiration</td>
+                            <td id="expDate">-</td>
+                        </tr>
+                        <tr>
+                            <td>5 - Manufacturing site</td>
+                            <td id="mfgSite">-</td>
+                        </tr>
+                        <tr>
+                            <td>6 - Repacking site</td>
+                            <td id="repackSite">-</td>
+                        </tr>
+                    </table>
+                </div>
 
-            <!-- Security Check Section - Moved inside result-container -->
-            <div class="product-info-section" id="securityCheckSection">
-                <h3 class="product-security-title">DRUM SECURITY CHECK</h3>
-                <p class="product-security-subtitle">Please inspect the label to make sure it has the
-                    correct security features.</p>
-            </div>
+                <!-- Security Label Section -->
+                <div class="product-info-section" id="securityLabelSection">
+                    <h3 class="product-security-title">DOW PRODUCT WITH SECURITY LABEL</h3>
+                    <img class="img-drum" src="{{ asset('img/drum-dow.jpg') }}" alt="Dow Product Drum"
+                        style="margin-top: 20px;">
+                </div>
 
-            <!-- Seal Label Section - Moved inside result-container -->
-            <div class="product-info-section" id="sealLabelSection">
-                <h3 class="product-security-title"></h3>
-                <img class="img-seal" src="{{ asset('img/seal-dow.jpg') }}" alt="Dow Seal">
+                <!-- Security Check Section -->
+                <div class="product-info-section" id="securityCheckSection">
+                    <h3 class="product-security-title">DRUM SECURITY CHECK</h3>
+                    <p class="product-security-subtitle">Please inspect the label to make sure it has the
+                        correct security features.</p>
+                </div>
+
+                <!-- Seal Label Section -->
+                <div class="product-info-section" id="sealLabelSection">
+                    <h3 class="product-security-title"></h3>
+                    <img class="img-seal" src="{{ asset('img/seal-dow.jpg') }}" alt="Dow Seal">
+                </div>
             </div>
         </div>
     </section>
@@ -636,8 +694,38 @@
             });
         });
 
-        function showResult(code, isValid, message, productData = null) {
+        function showLoading() {
             const resultSection = document.getElementById('section_result');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const resultContent = document.getElementById('resultContent');
+
+            // Hide result section with loading
+            resultSection.classList.remove('show');
+            loadingScreen.classList.add('show');
+            resultContent.classList.remove('show');
+
+            // Smooth scroll to loading section
+            setTimeout(() => {
+                loadingScreen.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+
+        function hideLoading() {
+            const resultSection = document.getElementById('section_result');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const resultContent = document.getElementById('resultContent');
+
+            resultSection.classList.add('show');
+            loadingScreen.classList.remove('show');
+            resultContent.classList.add('show');
+        }
+
+        function showResult(code, isValid, message, productData = null) {
+            hideLoading(); // Hide loading before showing result
+
             const resultCode = document.getElementById('resultCode');
             const resultStatus = document.getElementById('resultStatus');
             const resultMessage = document.getElementById('resultMessage');
@@ -679,19 +767,12 @@
             }
 
             resultMessage.textContent = message;
-            resultSection.classList.add('show');
-
-            // Smooth scroll ke result section
-            setTimeout(() => {
-                resultSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 100);
         }
 
         function hideResult() {
             const resultSection = document.getElementById('section_result');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const resultContent = document.getElementById('resultContent');
             const checkmarkIcon = document.getElementById('checkmarkIcon');
             const productInfoSection = document.getElementById('productInfoSection');
             const securityLabelSection = document.getElementById('securityLabelSection');
@@ -699,6 +780,8 @@
             const sealLabelSection = document.getElementById('sealLabelSection');
 
             resultSection.classList.remove('show');
+            loadingScreen.classList.remove('show');
+            resultContent.classList.remove('show');
             checkmarkIcon.classList.remove('show');
             productInfoSection.classList.remove('show');
             securityLabelSection.classList.remove('show');
@@ -714,16 +797,20 @@
             // Reset messages and hide result section
             errorMessage.classList.remove('show');
             errorMessage.textContent = '';
-            hideResult();
+            //hideResult(); // Reset everything first
 
             if (code.trim() === '') {
+                // if ()
                 errorMessage.textContent = 'You must supply an authentication code to continue.';
                 errorMessage.classList.add('show');
                 return;
             }
 
             button.disabled = true;
-            button.textContent = 'AUTHENTICATING...';
+            // button.textContent = 'AUTHENTICATING...';
+
+            // Show loading screen
+            showLoading();
 
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -752,9 +839,12 @@
                             code,
                             true,
                             data.message || 'Thank you for your purchase of a genuine product.',
-                            data.data // Pass product data to display in table
+                            data.data
                         );
                         console.log('Product data:', data.data);
+
+                        // Clear input after success
+                        document.getElementById('Code').value = '';
                     } else {
                         // Show suspect validation result
                         showResult(
@@ -763,30 +853,24 @@
                             data.message ||
                             'We are not certain about your product. Please contact our customer service team.'
                         );
+
+                        // Clear input even for suspect
+                        document.getElementById('Code').value = '';
                     }
                 })
                 .catch(error => {
                     button.disabled = false;
                     button.textContent = 'AUTHENTICATE';
+                    hideResult(); // Hide loading on error
                     errorMessage.textContent = 'An error occurred. Please try again.';
                     errorMessage.classList.add('show');
                     console.error('Error:', error);
                 });
         });
 
-        document.getElementById('Code').addEventListener('input', function(e) {
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (this.value.length > 0) {
-                errorMessage.classList.remove('show');
-                errorMessage.textContent = '';
-                hideResult();
-            }
-        });
-
         function formatDate(dateString) {
             if (!dateString) return '-';
-            const parts = dateString.split('-'); // ["2025","06","11"]
+            const parts = dateString.split('-');
             return `${parts[2]}/${parts[1]}/${parts[0]}`;
         }
 
