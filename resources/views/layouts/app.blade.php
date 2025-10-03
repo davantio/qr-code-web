@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons -->
+    <link href="{{ asset('img/home-solid.png') }}" rel="icon">
+    <link href="{{ asset('img/home-solid.png') }}" rel="apple-touch-icon">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dow Product Authentication</title>
     <style>
@@ -184,7 +189,7 @@
 
         .result-code {
             font-size: 32px;
-            color: #37474f;
+            color: #353535;
             margin-bottom: 30px;
             /* letter-spacing: 1px; */
         }
@@ -236,9 +241,9 @@
         .result-message {
             font-size: 14px;
             text-align: left;
-            font-weight: lighter;
+            /* font-weight: lighter; */
             /* margin-left: -28%; */
-            color: #666;
+            color: #777777 !important;
             line-height: 1.6;
             animation: fadeInUp 0.6s ease-out 0.2s both;
         }
@@ -271,7 +276,7 @@
 
         .product-info-title {
             font-size: 32px;
-            font-weight: lighter;
+            font-weight: 400;
             color: #ed1c2f;
             text-align: center;
             margin-bottom: 30px;
@@ -282,12 +287,16 @@
 
         .product-security-title {
             font-size: 32px;
-            font-weight: lighter;
+            font-weight: 400;
             color: #ed1c2f;
             text-align: center;
             margin-bottom: 10px;
             letter-spacing: 0.5px;
             padding-top: 30px;
+            border-top: 1px solid #e2e1e1;
+        }
+
+        .product-seal-title {
             border-top: 1px solid #e2e1e1;
         }
 
@@ -300,9 +309,9 @@
         }
 
         .product-security-subtitle {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            color: #666;
+            color: #777777;
             text-align: left;
             margin: 40px 10px 20px;
             line-height: 1.6;
@@ -487,7 +496,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('{{ asset('img/sampul-dow.jpg') }}');
+            background-image: url('{{ asset('img/sampul-dow.png') }}');
             background-size: cover;
             background-position: center;
             opacity: 0;
@@ -509,22 +518,65 @@
         }
 
         @media (max-width: 768px) {
+            #section_banner {
+                min-height: 90vh;
+            }
+
+            .banner-content {
+                margin-top: -325px;
+                width: 100%;
+                padding: 10px 15px;
+                /* position: relative;
+                z-index: 1; */
+            }
+
             .page-header {
-                font-size: 36px;
+                font-size: 30px;
+                font-weight: 300;
+                margin-bottom: 40px;
+                animation: fadeInDown 0.8s ease-out;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            #section_authenticate {
+                padding: 10px 15px;
+            }
+
+            .auth-container {
+                padding: 0;
+                margin-top: 200px;
+                max-width: 100%;
             }
 
             #Code {
-                font-size: 20px;
-                max-width: 300px;
+                font-size: 32px;
+                max-width: 100%;
+                letter-spacing: 1px;
+            }
+
+            .error-message {
+                font-size: 15px;
+            }
+
+            .error-message.show {
+                text-align: center;
             }
 
             .footer {
                 text-align: center;
             }
 
-            #section_banner::before,
-            #section_banner::after {
+            #section_banner::before {
                 opacity: 1;
+                background-size: 108%;
+                /* margin-bottom: 30px; */
+            }
+
+            #section_banner::after {
+                opacity: 0;
             }
 
             .result-container {
@@ -538,17 +590,18 @@
 
             .result-status {
                 font-size: 29px;
+                line-height: 1.3;
             }
 
             .result-code {
                 font-size: 29px;
                 margin-bottom: 25px;
+                line-height: 1.3;
             }
 
             .result-message {
-                font-size: 14px;
-                margin-left: 0px;
-                text-align: justify;
+                font-size: 15px;
+                /* margin-left: 0px; */
             }
 
             .checkmark-icon {
@@ -563,23 +616,42 @@
 
             .product-info-section .img-seal {
                 margin-left: 0;
+                margin-top: 20px;
+                margin-bottom: 0;
+                background-size: 70%;
             }
 
             .product-info-title {
-                font-size: 22px;
+                font-size: 32px;
+                line-height: 1.3;
+            }
+
+            .product-info-subtitle {
+                font-size: 15px;
+                text-align: left !important;
             }
 
             .product-security-title {
-                font-size: 22px;
+                font-size: 30px;
+                line-height: 1.3;
+                letter-spacing: 0;
+            }
+
+            .product-security-subtitle {
+                font-size: 16px;
+                color: #777777;
+                text-align: left;
+                margin: 40px 0px 20px !important;
             }
 
             .product-table td {
-                padding: 14px 16px;
-                font-size: 13px;
+                padding: 8px;
+                font-size: 15px;
+                line-height: 1.6;
             }
 
             .product-table td:first-child {
-                width: 45%;
+                width: 50%;
             }
         }
     </style>
@@ -680,7 +752,7 @@
                 <div class="product-info-section" id="securityLabelSection">
                     <h3 class="product-security-title">DOW PRODUCT WITH SECURITY LABEL</h3>
                     <img class="img-drum" src="{{ asset('img/drum-dow.jpg') }}" alt="Dow Product Drum"
-                        style="margin-top: 20px;">
+                        style="margin-top: 20px; margin-bottom: 0;">
                 </div>
 
                 <!-- Security Check Section -->
@@ -692,7 +764,7 @@
 
                 <!-- Seal Label Section -->
                 <div class="product-info-section" id="sealLabelSection">
-                    <h3 class="product-security-title"></h3>
+                    <h3 class="product-seal-title"></h3>
                     <img class="img-seal" src="{{ asset('img/seal-dow.jpg') }}" alt="Dow Seal">
                 </div>
             </div>
